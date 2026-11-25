@@ -1,0 +1,49 @@
+# 编程课程作业提交与互评系统（NEW-057，通道 2）
+server:
+  # 通道 2 专用端口（pipeline/queue.py 分配，勿改）
+  port: 8081
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: code-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/new_060?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: "123456"
+    hikari:
+      maximum-pool-size: 8
+      minimum-idle: 2
+  servlet:
+    multipart:
+      # 现场照片单张不超过 10MB，请求上限 60MB
+      max-file-size: 10MB
+      max-request-size: 60MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+app:
+  upload-dir: ./uploads
+  jwt-secret: code-assignment-peer-review-2026-lane2-secret-key
+  jwt-expire-hours: 12
+  login-fail-limit: 5
+  login-lock-minutes: 10
+
+logging:
+  level:
+    com.grad.code: info
